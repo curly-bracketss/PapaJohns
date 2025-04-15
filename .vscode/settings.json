@@ -1,0 +1,7 @@
+{
+    "liveServer.settings.multiRootWorkspaceName": "PapaJohns.az",
+    "liveServer.settings.ignoreFiles": [
+      "**/db.json"
+    ]
+  }
+  

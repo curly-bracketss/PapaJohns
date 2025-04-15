@@ -1,0 +1,414 @@
+html{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+    width: 60vw;
+    margin: 0 auto;
+}
+
+.container-md {
+    max-width: 80vw;
+    margin: 0 auto;
+}
+
+.container-lg {
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.nav-bar {
+    background-color: #AF3813;
+    padding: 10px;
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        ul {
+            overflow-x: scroll;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            display: flex;
+            list-style: none;
+            justify-content: space-between;
+            gap: 15px;
+
+            li {
+                text-transform: uppercase;
+                font: 700 20px Arial;
+
+                a {
+                    text-decoration: none;
+                    color: white;
+
+                }
+
+            }
+        }
+    }
+
+    img {
+        width: 120px;
+    }
+
+}
+
+.d-flex {
+    display: flex;
+}
+
+.j-c-b {
+    justify-content: space-between;
+}
+
+.f-col {
+    flex-direction: column;
+}
+
+.g-15 {
+    gap: 15px;
+}
+
+.g-5 {
+    gap: 5px;
+}
+
+.a-c {
+    align-items: center;
+}
+
+.d-none {
+    display: none;
+}
+
+.first-header {
+    font-weight: 700;
+    font-size: 20px;
+
+    .right {
+
+        img {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    .left {
+        align-items: center;
+    }
+
+}
+
+.allLang {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    position: relative;
+    width: 170px;
+}
+
+.select {
+    position: absolute;
+    border: 1px solid black;
+    width: 100%;
+    border-radius: 10px;
+    padding: 5px;
+    top: 60px;
+    background-color:#eeeeee;
+    z-index: 3;
+    div:hover {
+        background-color: lightgrey;
+    }
+}
+
+#basket {
+    position: relative;
+    height: 50px;
+
+    #count1 {
+        position: absolute;
+        background-color: rgb(179, 3, 3);
+        border-radius: 50%;
+        top: -50%;
+        padding: 5px 7px;
+        right: -8%;
+        color: white;
+        font-size: 12px;
+        font-weight: 100;
+    }
+
+    #count2 {
+        position: absolute;
+        font-size: 15px;
+        top: 15px;
+        left: 10px;
+    }
+
+    a {
+        font-size: 30px;
+        color: black;
+
+    }
+
+}
+
+
+.promokod {
+    margin-top: 20px;
+    display: flex;
+    background-color: #F1F1F1;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    .green {
+        color: #407B5B;
+
+    }
+
+    h3 {
+        font: 700 24px Arial;
+
+    }
+
+    .promokod-inp {
+        margin-left: 15px;
+    }
+
+    button {
+        background-color: #407B5B;
+        padding: 8px 20px;
+        color: white;
+        border-radius: 8px;
+        font: 700 16px Arial;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+    input {
+        padding: 8px 20px;
+        border-radius: 8px;
+        border: 2px solid #407B5B;
+        font: 700 16px Arial;
+
+    }
+}
+
+section {
+    padding: 30px 0;
+}
+
+.swiper img {
+    width: 100%;
+    object-fit: cover;
+    height: 50vh;
+}
+
+.cards {
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    article {
+        border: 1px solid rgba(128, 128, 128, 0.295);
+        border-radius: 5px;
+        padding-bottom: 10px;
+    }
+
+    img {
+        width: 100%;
+        object-fit: cover;
+        overflow: hidden;
+        border: 5px;
+    }
+
+    p {
+        padding: 0 10px;
+        text-wrap: wrap;
+        height: 50px;
+    }
+
+    h3 {
+        padding: 0 10px;
+        height: 30px;
+    }
+
+    div {
+        padding: 0 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .buttons {
+        display: flex;
+        height: 40px;
+        gap: 5px;
+
+        button {
+            width: 50%;
+
+        }
+    }
+
+    button {
+        background-color: green;
+        border: none;
+        color: white;
+        font: 700 16px Arial;
+        border-radius: 10px;
+        padding: 5px 10px;
+        height: 40px;
+        text-wrap: nowrap;
+    }
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: #AF3813;
+    align-items: center;
+    padding: 0 20px;
+
+    h4 {
+        color: white;
+        font: 500 18px Arial;
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        gap: 6px;
+
+        a {
+            text-decoration: none;
+            color: black;
+            font: 700 16px Arial;
+        }
+    }
+
+    .footer-1 {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        img {
+            width: 100px;
+        }
+    }
+}
+
+.opacity {
+    opacity: 0.5;
+}
+
+.changeModal,.sebet {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #222733e1;
+    padding-top: 50px;
+}
+    #inps {
+        
+        display: none;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-direction: column;
+   
+    .inpDIv{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 50vw;
+        justify-content: space-between;
+        h3{
+            color: whitesmoke;
+            font: 700 20px Arial;
+        }
+    }
+    input {
+        width:calc(50vw* 0.8);
+        background-color: whitesmoke;
+        text-align: center;
+        padding:  20px;
+        border-radius: 8px;
+        border: 3px solid #407B5B;
+        font: 700 16px Arial;
+        font-size: 20px;
+
+    }
+
+    .buttons {
+        width: 50%;
+        display: flex;
+        gap: 10px;
+    }
+
+    button {
+        outline: #474e5d;
+        background-color: #407B5B;
+        padding: 20px;
+        width: 100%;
+        color: white;
+        border-radius: 8px;
+        font: 700 16px Arial;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 10px;
+    }
+
+
+    }
+@media only screen and (min-width:1024px) {
+    article {
+        width: 23%;
+    }
+}
+
+@media only screen and (max-width:1100px) {}
+
+
+
+@media only screen and (max-width:1024px) {
+    article {
+        width: 30%;
+    }
+
+}
+
+@media only screen and (max-width:968px) {
+    article {
+        width: 48%;
+    }
+
+    .promokod {
+        flex-direction: column;
+    }
+
+    footer {
+        flex-direction: column;
+
+        ul {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+@media only screen and (max-width:600px) {
+    article {
+        width: 98%;
+    }
+}

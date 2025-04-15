@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papa Johns</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="first-header d-flex j-c-b a-c">
+            <div class="left d-flex g-15">
+                <h4>Restoranlar</h4>
+                <h4>PapaBonus</h4>
+            </div>
+            <div class="right d-flex g-15 a-c">
+                <div class="allLang">
+                    <div class="choosenLang" onclick='selLang()'></div>
+                    <div class="select d-none"></div>
+                </div>
+                <div class="d-flex a-c">
+                    <h4 id="giris">Giriş/</h4>
+                    <h4 id="regis">Qeydiyyat</h4>
+                </div>
+                <div id="basket" class="a-c" onclick="showBasket()">
+                    <a>
+                        <i class="fa fa-shopping-basket"></i>
+                        <p id="count1">0</p>
+                        <p id="count2">0</p>
+                    </a>
+
+                </div>
+                <div class="secilmisler">
+                    <i class="fa-solid fa-heart"></i>
+
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+        <div class="nav-bar">
+            <nav class="container">
+                <img src="https://papa-johns-aysumeherremovas-projects.vercel.app/img/pj_logo_web_new.png" alt="logo"
+                    class="logo">
+
+                <ul id="ul">
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="changeModal">
+            <div id="inps">
+                <div class="inpDIv">
+                    <h3>Name:</h3>
+                    <input placeholder="name" type="text">
+                </div>
+                <div class="inpDIv">
+                    <h3>Image URL:</h3>
+                <input placeholder="img" type="text">
+                </div>
+                <div class="inpDIv">
+                    <h3>Category:</h3>
+                <input placeholder="category" type="text">
+                </div>
+                <div class="inpDIv">
+                    <h3>Composition:</h3>
+                <input placeholder="composition" type="text">
+                </div>
+                <div class="inpDIv">
+                    <h3>Price:</h3>
+                <input placeholder="price" type="number">
+                </div>
+                <div class="buttons">
+                    <button onclick="createPost()"> Create Meal</button>
+                    <button onclick="updatePost()">Update Meal</button>
+                </div>
+            </div>
+        </div>
+        <div class="sebet">
+            <h2>Sebetim:</h2>
+            <button>Almaga davam et</button>
+            <table>
+                <tr>
+                    <th>Mehsul</th>
+                    <th>Adi</th>
+                    <th>Terkibi</th>
+                    <th>Miqdar</th>
+                    <th>Qiymet</th>
+                    <th>Umumi qiymet</th>
+                    
+                </tr>
+            </table>
+        </div>
+        <div class="promokod container-lg">
+            <h3>Promo kodunuz var?</h3>
+            <h3 class="green">Endirimdən istifadə edin!</h3>
+            <div class="promokod-inp">
+                <input placeholder="Promo kodu daxil edin">
+                <button>OK</button>
+            </div>
+        </div>
+        <div class="container-lg" id="species"> </div>
+        <section class="container-lg">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+        <div class="cards container-lg"></div>
+    </main>
+    <footer>
+        <h4>©PJA 2025</h4>
+        <ul>
+            <li><a href="#">Haqqımızda</a></li>
+            <li><a href="#">Sual və Cavab</a></li>
+            <li><a href="#">Karyera</a></li>
+            <li><a href="#">Xəmir</a></li>
+            <li><a href="#">Papa Talk</a></li>
+            <li><a href="#"> Şərtlər və Qaydalar</a></li>
+        </ul>
+    </footer>
+    <script src="./script.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+</body>
+
+</html>
