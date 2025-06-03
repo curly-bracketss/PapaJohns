@@ -1,4 +1,4 @@
-import { GetData, printData, deleteItemById, changeItemById, createItem} from "./service.js";
+import { GetData, printData, deleteItemById, changeItemById, createItem } from "./service.js";
 const carousel = ['https://papa-johns-aysumeherremovas-projects.vercel.app/img/slider5.png',
     'https://papa-johns-aysumeherremovas-projects.vercel.app/img/slider2.png',
     'https://papa-johns-aysumeherremovas-projects.vercel.app/img/slider7.png',
@@ -46,7 +46,8 @@ window.printCards = async function (category) {
                 <p>${item.composition}</p>
                 <div>
                 <h4>Qiymət: $${item.price}</h4>
-                <button onclick="buyThis('${item.title}','${category}')" class="select-button">Bunu seç</button>
+                <button onclick="addFav('${category}','${item.id}')"> <i class="fa-solid fa-heart"></i></button>   
+                <button onclick="buyThis('${item.title}','${category}','${item.id}')" class="select-button">Bunu seç</button>
                 </div>
                 <div class='buttons'>
                     <button onclick="deleteThis('${category}','${item.id}')" class="select-button">Sil</button>
@@ -83,9 +84,9 @@ window.deleteThis = async function (category, id) {
         reverseButtons: true
     }).then(async (result) => { // <--- make this async
         if (result.isConfirmed) {
-
-            const updatedData = await deleteItemById(category, id);
-
+            await deleteItemById(category, id);
+            data = data.filter(item => item.id !== id)
+            renderCat()
             swalWithBootstrapButtons.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
@@ -154,6 +155,7 @@ window.updatePost = function () {
     const updatedObj = getInpValues()
     const category = localStorage.getItem('ctg')
     changeItemById(category, globId, updatedObj)
+    data.filter(item => item.category == category)
     document.querySelector('.changeModal').style.display = 'none'
     notyf.success('Your changes have been successfully saved!');
 }
@@ -166,7 +168,91 @@ function showBasket() {
     document.querySelector('.sebet').style.display = 'block'
 
 }
+let itemsCounts = 0;
+let k = 0;
+document.querySelectorAll('.sebet tbody .total-price').forEach(item => {
+    let priceText = item.innerHTML;
+    let price = parseFloat(priceText.slice(1)); 
+    k += price;
+});
+let totalMoney = '$' + k.toFixed(2);
+document.querySelector("#count1").innerHTML = totalMoney;
 
+window.buyThis = async function (title, category, id) {
+    const filteredData = await printData(category);
+    const item = filteredData.find(item => item.title === title);
+    console.log(item);
+
+    const existingInput = document.querySelector(`#count-${id}`);
+    if (existingInput) {
+        existingInput.value = parseInt(existingInput.value) + 1;
+        updateTotal(existingInput);
+    } else {
+        const basketBody = document.querySelector('.sebet tbody');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><img src="${item.img}" alt="${item.title}" width="100"></td>
+            <td>${item.title}</td>
+            <td class="composition">${item.composition || "—"}</td>
+            <td>
+                <input class="count-of" type="number" id="count-${id}" value="1" min="1"
+                    data-price="${item.price}" onchange="updateTotal(this)">
+            </td>
+            <td>$${item.price}</td>
+            <td class="total-price">$${item.price}</td>
+            <td onclick='deleteItem(this)'><i class="fa-solid fa-trash"></i></td>`;
+        basketBody.appendChild(row);
+        updateTotal(document.querySelector(`#count-${id}`)); 
+    }
+
+    itemsCounts++;
+    document.querySelector("#count2").innerHTML = `${itemsCounts}`;
+    notyf.success('Added to basket successfully!');
+};
+window.deleteItem=function(item){
+    item.parentNode.remove();
+    updateTotal (item)
+}
+window.updateTotal = function (input) {
+    const price = parseFloat(input.dataset.price);
+    const quantity = parseInt(input.value);
+    const total = price * quantity;
+
+    const totalCell = input.closest('tr').querySelector('.total-price');
+    totalCell.textContent = `$${total.toFixed(2)}`;
+
+    let k = 0;
+    document.querySelectorAll('.sebet tbody .total-price').forEach(priceEl => {
+        const priceText = priceEl.textContent;
+        const numericValue = parseFloat(priceText.slice(1)); 
+        k += numericValue;
+    });
+
+    const totalMoney = `$${k.toFixed(2)}`;
+    document.querySelector("#count1").innerHTML = totalMoney;
+};
+window.favOpen = function () {
+    const favContainer = document.querySelector('.secilmisler');
+    favContainer.classList.toggle('d-none');
+    favContainer.classList.toggle('d-flex');
+}
+ window.addFav= async function(category,id){
+    const filteredData = await printData(category);
+    const item = filteredData.find(item => item.title === title);
+    const favBody = document.querySelector('.secilmisler tbody');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td><img src="${item.img}" alt="${item.title}" width="100"></td>
+        <td>${item.title}</td>
+        <td class="composition">${item.composition || "—"}</td>
+       
+        <td>$${item.price}</td>
+        <td class="total-price">$${item.price}</td>
+        <td onclick='deleteItem(this)'><i class="fa-solid fa-trash"></i></td>
+    `;
+
+    favBody.appendChild(row);
+}
 for (let item of carousel) {
     document.querySelector('.swiper-wrapper').innerHTML += ` <div class="swiper-slide"><img src='${item}'></div>`
 }
@@ -203,7 +289,7 @@ languages.forEach(item => {
     document.querySelector('.select').innerHTML +=
         `<div class='d-flex g-5 a-c' onclick="language('${item.short}')">
             <img src='${item.src}' width='20px'>
-            <h4>${item.short}</h4>
+            <h4>${item.name}</h4>
         </div>`;
 });
 
@@ -213,8 +299,8 @@ window.selLang = function () {
     document.querySelector('.select').classList.toggle('d-none');
 };
 window.showbasket = function () {
-    document.querySelector('.sebetde').classList.toggle('d-none')
-    document.querySelector('.sebetde').classList.toggle('d-flex')
+    document.querySelector('.sebet').classList.toggle('d-none')
+    document.querySelector('.sebet').classList.toggle('d-flex')
 }
 window.onload = function () {
     document.querySelector('.choosenLang').innerHTML = `
@@ -243,18 +329,12 @@ document.addEventListener('click', function (event) {
         select.classList.add('d-none');
     }
 });
-window.buyThis = async function (title,category) {
-    const newdata=await  printData(category)
-    const item=newdata.filter(item=> item.title==title)
-    document.querySelector('.sebet').innerHTML +=`<tr></tr>`
-    document.querySelector('.sebet').innerHTML +=`
-    <td>img src='${item.url}' alt='meal'></td>
-    <td><h4>${item.title}</h4></td>
-    <td><h4>${item.composition}</h4></td>
-    <td><h5>${item.price}</h5></td>
-    <td><input id='countof' type='number' data-count='1'></td>
-    <td><h3 id='total-price'></h3></td>
-    
-    `
-    notyf.success('Added basket successfully!');
+
+window.showBasket = function () {
+    document.querySelector('.allSebet').classList.toggle('d-block')
+    document.querySelector('body').style.overflowY='hidden'
+}
+window.closeBasket = function () {
+    document.querySelector('.allSebet').classList.toggle('d-block')
+
 }

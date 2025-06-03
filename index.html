@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
 </head>
 
 <body>
@@ -39,10 +39,9 @@
                     </a>
 
                 </div>
-                <div class="secilmisler">
+                <div  onclick="favOpen()">
                     <i class="fa-solid fa-heart"></i>
-
-                </div>
+                  </div>
             </div>
 
         </div>
@@ -68,19 +67,19 @@
                 </div>
                 <div class="inpDIv">
                     <h3>Image URL:</h3>
-                <input placeholder="img" type="text">
+                    <input placeholder="img" type="text">
                 </div>
                 <div class="inpDIv">
                     <h3>Category:</h3>
-                <input placeholder="category" type="text">
+                    <input placeholder="category" type="text">
                 </div>
                 <div class="inpDIv">
                     <h3>Composition:</h3>
-                <input placeholder="composition" type="text">
+                    <input placeholder="composition" type="text">
                 </div>
                 <div class="inpDIv">
                     <h3>Price:</h3>
-                <input placeholder="price" type="number">
+                    <input placeholder="price" type="number">
                 </div>
                 <div class="buttons">
                     <button onclick="createPost()"> Create Meal</button>
@@ -88,20 +87,38 @@
                 </div>
             </div>
         </div>
-        <div class="sebet">
-            <h2>Sebetim:</h2>
-            <button>Almaga davam et</button>
-            <table>
-                <tr>
-                    <th>Mehsul</th>
-                    <th>Adi</th>
-                    <th>Terkibi</th>
-                    <th>Miqdar</th>
-                    <th>Qiymet</th>
-                    <th>Umumi qiymet</th>
-                    
-                </tr>
-            </table>
+        <div class="allSebet">
+
+            <div class="sebet">
+                <button onclick="closeBasket()">Almaga davam et</button>
+ 
+                <h2>Sebetim:</h2>
+                <table>
+                    <tr>
+                        <th>Mehsul</th>
+                        <th>Adi</th>
+                        <th>Terkibi</th>
+                        <th>Miqdar</th>
+                        <th>Qiymet</th>
+                        <th>Umumi qiymet</th>
+                    </tr>
+                 <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="secilmisler d-none" >
+            <div class="favourites">
+                <table>
+                    <tr>
+                        <th>Mehsul</th>
+                        <th>Adi</th>
+                        <th>Terkibi</th>
+                        <th>Miqdar</th>
+                        <th>Qiymet</th>
+                    </tr>
+                 <tbody></tbody>
+                </table>
+            </div>
         </div>
         <div class="promokod container-lg">
             <h3>Promo kodunuz var?</h3>

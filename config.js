@@ -1,8 +1,8 @@
 const BASE_URL = {
-    GET: 'http://localhost:3000',
-    PUT: 'http://localhost:3000',
-    POST: 'http://localhost:3000',
-    DELETE: 'http://localhost:3000',
+    GET: 'https://papadata-dd2j.onrender.com',
+    PUT: 'https://papadata-dd2j.onrender.com',
+    POST: 'https://papadata-dd2j.onrender.com',
+    DELETE: 'https://papadata-dd2j.onrender.com',
 };
 
 export default BASE_URL;
