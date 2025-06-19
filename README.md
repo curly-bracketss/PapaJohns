@@ -34,7 +34,7 @@ A responsive web project replicating the style and layout of the **Papa John’s
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/papa-johns-clone.git
+   git clone https://github.com/curly-bracketss/PapaJohns.git
 2. **Open in browser**
 Simply open index.html in your preferred browser.
 
