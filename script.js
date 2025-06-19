@@ -82,7 +82,7 @@ window.deleteThis = async function (category, id) {
         confirmButtonText: "Yes, delete it!",
         cancelButtonText: "No, cancel!",
         reverseButtons: true
-    }).then(async (result) => { // <--- make this async
+    }).then(async (result) => { 
         if (result.isConfirmed) {
             await deleteItemById(category, id);
             data = data.filter(item => item.id !== id)
@@ -232,27 +232,94 @@ window.updateTotal = function (input) {
     document.querySelector("#count1").innerHTML = totalMoney;
 };
 window.favOpen = function () {
-    const favContainer = document.querySelector('.secilmisler');
-    favContainer.classList.toggle('d-none');
-    favContainer.classList.toggle('d-flex');
-}
- window.addFav= async function(category,id){
-    const filteredData = await printData(category);
-    const item = filteredData.find(item => item.title === title);
-    const favBody = document.querySelector('.secilmisler tbody');
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td><img src="${item.img}" alt="${item.title}" width="100"></td>
-        <td>${item.title}</td>
-        <td class="composition">${item.composition || "—"}</td>
-       
-        <td>$${item.price}</td>
-        <td class="total-price">$${item.price}</td>
-        <td onclick='deleteItem(this)'><i class="fa-solid fa-trash"></i></td>
-    `;
+    renderFavourites();
 
-    favBody.appendChild(row);
-}
+    const favWrapper = document.querySelector('.secilmisler'); 
+    const favContent = document.querySelector('.favourites');  
+
+    favWrapper.classList.toggle('d-none');
+    favWrapper.classList.toggle('d-block');
+
+    if (!favWrapper.classList.contains('d-none')) {
+        const outsideClickListener = (event) => {
+            if (!favContent.contains(event.target) && !event.target.closest('.open-fav-btn')) {
+                favWrapper.classList.add('d-none');
+                favWrapper.classList.remove('d-block');
+                document.removeEventListener('click', outsideClickListener);
+            }
+        };
+        setTimeout(() => {
+            document.addEventListener('click', outsideClickListener);
+        }, 0);
+    }
+};
+
+window.addFav = async function (category, id) {
+    let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    const filteredData = await printData(category);
+
+    if (!filteredData || !Array.isArray(filteredData)) {
+        console.error('Data not loaded properly for category:', category);
+        return;
+    }
+
+    const item = filteredData.find(item => item.id == id);
+    if (!item) {
+        console.error('Item not found in data for ID:', id);
+        return;
+    }
+    const exists = favourites.some(fav => fav.id == item.id && fav.category == category);
+
+    if (!exists) {
+        favourites.push({ ...item, category });
+        localStorage.setItem('favourites', JSON.stringify(favourites));
+        notyf.success('Added to favourites!');
+    } else {
+        favourites = favourites.filter(fav => !(fav.id == item.id && fav.category == category));
+        localStorage.setItem('favourites', JSON.stringify(favourites));
+        notyf.error('Removed from favourites!');
+    }
+
+    if (typeof updateHeartIcon === 'function') {
+        updateHeartIcon(id, !exists);
+    }
+};
+
+window.renderFavourites = function () {
+    const favBody = document.querySelector('.secilmisler tbody');
+    if (!favBody) {
+        console.error('Favourites table body not found.');
+        return;
+    }
+
+    favBody.innerHTML = '';
+
+    const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    favourites.forEach(item => {
+        favBody.innerHTML += `
+            <tr>
+                <td>${item.title || "No title"}</td>
+                <td>${item.composition || "—"}</td>
+                <td>$${item.price}</td>
+                <td>
+                    <button onclick="removeFav('${item.category}', '${item.id}')" class="btn btn-danger btn-sm">
+                        Remove
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+};
+
+window.removeFav = function (category, id) {
+    let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    favourites = favourites.filter(fav => !(fav.id == id && fav.category == category));
+    localStorage.setItem('favourites', JSON.stringify(favourites));
+    renderFavourites();
+    notyf.error('Removed from favourites!');
+};
+
+
 for (let item of carousel) {
     document.querySelector('.swiper-wrapper').innerHTML += ` <div class="swiper-slide"><img src='${item}'></div>`
 }
